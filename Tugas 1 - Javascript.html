@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tugas 1 Javascript - Menghitung Luas Bangun Datar</title>
+  <style>
+    body {
+      font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+      background: #f3f8ff;
+      color: gray;
+      text-align: center;
+      padding: 20px;
+    }
+
+    h1 {
+      color: blueviolet;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      width: 250px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px grey;
+        transition: transform 0.2s;
+    }
+
+    .shape {
+      margin: 0 auto 15px;
+    }
+
+    /* Persegi panjang */
+    .rectangle {
+      width: 120px;
+      height: 60px;
+      background: cyan;
+    }
+
+    /* Bujur sangkar */
+    .square {
+      width: 80px;
+      height: 80px;
+      background: lime;
+    }
+
+    /* Segitiga */
+    .triangle {
+      width: 0;
+      height: 0;
+      border-left: 60px solid transparent;
+      border-right: 60px solid transparent;
+      border-bottom: 100px solid orange;
+    }
+
+    /* Hasil */
+    .results {
+      color: navy;
+      margin-top: 10px;
+      font-weight: bold;
+      
+    }
+
+    .footer {
+      margin-top: 40px;
+      font-size: 14px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <h1>Menghitung Luas Bangun Datar</h1>
+  <p>Contoh luas Persegi Panjang, Bujur Sangkar, dan Segitiga.</p>
+  <div class="container">
+    <!-- Persegi Panjang -->
+    <div class="card">
+      <div class="shape rectangle"></div>
+      <p>Persegi Panjang</p>
+      <p id="luas-persegi-panjang" class="results"></p>
+    </div>
+
+    <!-- Bujur Sangkar -->
+    <div class="card">
+      <div class="shape square"></div>
+      <p>Bujur Sangkar</p>
+      <p id="luas-bujur-sangkar" class="results"></p>
+    </div>
+
+    <!-- Segitiga -->
+    <div class="card">
+      <div class="shape triangle"></div>
+      <p>Segitiga</p>
+      <p id="luas-segitiga" class="results"></p>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>Made By: Rizaldy Rafa Akhmad</p>
+  </footer>
+  <script>
+    // Fungsi luas persegi panjang
+    function luasPersegiPanjang(panjang, lebar) {
+      return panjang * lebar;
+    }
+
+    // Fungsi luas bujur sangkar
+    function luasBujurSangkar(sisi) {
+      return sisi * sisi;
+    }
+
+    // Fungsi luas segittiga
+    function luasSegitiga(alas, tinggi) {
+      return (alas * tinggi) / 2;
+    }
+
+    // Contoh nilai
+    let panjang = 12;
+    let lebar = 6;
+    let sisi = 8;
+    let alas = 10;
+    let tinggi = 7;
+
+    // Tampilan di Hallaman Web
+    document.getElementById("luas-persegi-panjang").textContent =
+      "Luas = " + luasPersegiPanjang(panjang, lebar);
+    document.getElementById("luas-bujur-sangkar").textContent =
+      "Luas = " + luasBujurSangkar(sisi);
+    document.getElementById("luas-segitiga").textContent =
+      "Luas = " + luasSegitiga(alas, tinggi);
+  </script>
+</body>
+</html>
