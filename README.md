@@ -1,4 +1,4 @@
-# tugas1_javascript
-Repo ini adalah untuk menaruh Tugas 1 Javascript, pada pertemuan 1 di materi Javascript.
+# repo_javascript
+Repo ini adalah untuk menaruh semua tugas di materi Javascript. Setiap tugas akan ditaruh di branch yg berbeda.
 
 Made By: Rizaldy Rafa
