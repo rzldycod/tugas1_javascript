@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tugas 3 JS - Toko Online</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+    }
+    h1 {
+      text-align: center;
+      color: navy;
+    }
+    table {
+      border-collapse: collapse;
+      width: 80%;
+      margin: 20px auto;
+      background-color: white;
+    }
+    th, td {
+      border: 1px solid black;
+      padding: 6px;
+      text-align: center;
+    }
+    thead {
+      background-color: lightblue;
+    }
+    .form-container {
+      width: 80%;
+      margin: 10px auto;
+      background-color: white;
+      border: 1px solid black;
+      padding: 10px;
+    }
+    .form-container input {
+      margin: 5px;
+      padding: 5px;
+    }
+    button {
+      padding: 5px 10px;
+      margin: 5px;
+      background-color: blue;
+      color: white;
+      border: none;
+    }
+    button:hover {
+      background-color: darkblue;
+    }
+    p {
+      text-align: center;
+      font-size: 14px;
+      color: gray;
+    }
+  </style>
+</head>
+<body>
+  <h1>Product Management System</h1>
+
+  <div class="form-container">
+    <h3>Add Product</h3>
+    <input type="text" id="namaProduk" placeholder="Product Name">
+    <input type="number" id="hargaProduk" placeholder="Price">
+    <input type="number" id="stokProduk" placeholder="Stock">
+    <button onclick="tambahProduk()">Add</button>
+  </div>
+
+  <div class="form-container">
+    <h3>Remove Product</h3>
+    <input type="number" id="hapusId" placeholder="ID">
+    <button onclick="hapusProduk()">Remove</button>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Product Name</th>
+        <th>Price</th>
+        <th>Stock</th>
+      </tr>
+    </thead>
+    <tbody id="daftar-produk">
+    </tbody>
+  </table>
+
+  <tfoot>
+    <p>Made By: Rizaldy Rafa</p>
+  </tfoot>
+
+  <script>
+    // ...existing code...
+    let produkToko = [
+      { id: 1, nama: "Laptop", harga: 7000000, stok: 5 },
+      { id: 2, nama: "Mouse", harga: 200000, stok: 10 },
+      { id: 3, nama: "Keyboard", harga: 350000, stok: 7 },
+      { id: 4, nama: "Monitor", harga: 500000, stok: 30 },
+      { id: 5, nama: "Headphone", harga: 300000, stok: 15 },
+      { id: 6, nama: "Cooling Fan", harga: 450000, stok: 20 },
+      { id: 7, nama: "Extension Cord", harga: 100000, stok: 50 },
+      { id: 8, nama: "VR Headset", harga: 12000000, stok: 40 }
+    ];
+// ...existing code...
+
+    function tampilkanProduk() {
+      let tbody = document.getElementById("daftar-produk");
+      tbody.innerHTML = "";
+      for (let i = 0; i < produkToko.length; i++) {
+        let row = "<tr>";
+        row += "<td>" + produkToko[i].id + "</td>";
+        row += "<td>" + produkToko[i].nama + "</td>";
+        row += "<td>Rp " + produkToko[i].harga + "</td>";
+        row += "<td>" + produkToko[i].stok + "</td>";
+        row += "</tr>";
+        tbody.innerHTML += row;
+      }
+    }
+
+    function tambahProduk() {
+      let nama = document.getElementById("namaProduk").value;
+      let harga = parseInt(document.getElementById("hargaProduk").value);
+      let stok = parseInt(document.getElementById("stokProduk").value);
+      if (nama === "" || isNaN(harga) || isNaN(stok)) {
+        alert("Please fill in all fields correctly.");
+        return;
+      }
+
+      let idBaru = produkToko.length + 1;
+      produkToko.push({ id: idBaru, nama: nama, harga: harga, stok: stok });
+      alert("Product added successfully.");
+      document.getElementById("namaProduk").value = "";
+      document.getElementById("hargaProduk").value = "";
+      document.getElementById("stokProduk").value = "";
+      tampilkanProduk();
+    }
+
+    function hapusProduk() {
+      let idHapus = parseInt(document.getElementById("hapusId").value);
+      if (isNaN(idHapus)) {
+        alert("Please enter a valid ID to delete.");
+        return;
+      }
+
+      let index = -1;
+      for (let i = 0; i < produkToko.length; i++) {
+        if (produkToko[i].id === idHapus) {
+          index = i;
+          break;
+        }
+      }
+
+      if (index !== -1) {
+        produkToko.splice(index, 1);
+        alert("Product removed successfully.");
+      } else {
+        alert("Product with ID " + idHapus + " not found.");
+      }
+
+      document.getElementById("hapusId").value = "";
+      tampilkanProduk();
+    }
+    tampilkanProduk();
+  </script>
+</body>
+</html>
