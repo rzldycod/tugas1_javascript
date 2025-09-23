@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tugas 4 JS - Sistem Manajemen Transportasi</title>
+    <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: whitesmoke;
+    }
+    h1 {
+      text-align: center;
+      color: navy;
+    }
+    table {
+      border-collapse: collapse;
+      width: 80%;
+      margin: 20px auto;
+      background-color: white;
+    }
+    th, td {
+      border: 1px solid black;
+      padding: 6px;
+      text-align: center;
+    }
+    thead {
+      background-color: lightblue;
+    }
+    .form-container {
+      width: 80%;
+      margin: 10px auto;
+      background: #fff;
+      padding: 10px;
+      border: 1px solid black;
+    }
+    input {
+      margin: 5px;
+      padding: 5px;
+    }
+    button {
+      margin: 5px;
+      padding: 5px 10px;
+      background: blue;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background: darkblue;
+    }
+</style>
+</head>
+<body>
+    <h1>Sistem Manajemen Transportasi</h1>
+
+  <div class="form-container">
+    <h3>Tambah Transaksi Sewa</h3>
+    <input type="text" id="nama" placeholder="Nama">
+    <input type="text" id="telepon" placeholder="Nomor Telepon">
+    <input type="text" id="kendaraan" placeholder="Kendaraan Disewa">
+    <button onclick="tambahPelanggan()">Tambah</button>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Nama</th>
+        <th>Nomor Telepon</th>
+        <th>Kendaraan Disewa</th>
+        <th>Hapus</th>
+      </tr>
+    </thead>
+    <tbody id="daftar-pelanggan">
+    </tbody>
+  </table>
+  
+<script>
+  class Pelanggan {
+    constructor(nama, nomorTelepon, kendaraanDisewa) {
+      this.nama = nama;
+      this.nomorTelepon = nomorTelepon;
+      this.kendaraanDisewa = kendaraanDisewa;
+    }
+    sewaKendaraan(kendaraan) {
+      this.kendaraanDisewa = kendaraan;
+    }
+  }
+
+  let daftarPelanggan = [];
+  function tampilkanPelanggan() {
+    let tbody = document.getElementById("daftar-pelanggan");
+    tbody.innerHTML = ""; 
+
+    for (let i = 0; i < daftarPelanggan.length; i++) {
+        let row = "<tr>";
+        row += "<td>" + daftarPelanggan[i].nama + "</td>";
+        row += "<td>" + daftarPelanggan[i].nomorTelepon + "</td>";
+        row += "<td>" + daftarPelanggan[i].kendaraanDisewa + "</td>";
+        row += "<td><button onclick='hapusPelanggan(" + i + ")'>Hapus</button></td>";
+        row += "</tr>";
+        tbody.innerHTML += row;
+    }
+  }
+
+  function hapusPelanggan(index) {
+    let yakin = confirm("Apakah yakin ingin menghapus pelanggan ini?");
+    if (yakin) {
+        daftarPelanggan.splice(index, 1); 
+        tampilkanPelanggan(); 
+    }
+  }
+
+  function tambahPelanggan() {
+    let nama = document.getElementById("nama").value;
+    let telepon = document.getElementById("telepon").value;
+    let kendaraan = document.getElementById("kendaraan").value;
+
+    if (nama === "" || telepon === "" || kendaraan === "") {
+        alert("Harap isi semua data dengan benar!");
+        return;
+    }
+
+    let pelangganBaru = new Pelanggan(nama, telepon, kendaraan);
+    daftarPelanggan.push(pelangganBaru);
+
+    // Kosongkan form
+    document.getElementById("nama").value = "";
+    document.getElementById("telepon").value = "";
+    document.getElementById("kendaraan").value = "";
+
+    tampilkanPelanggan();
+  }
+</script>
+</body>
+</html>
