@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tugas 5 JS - Manajemen Produk</title>
+    <style>
+    body {
+        font-family: Arial;
+        background-color: whitesmoke;
+    }
+    h1 {
+        text-align: center;
+    }
+    .buttons {
+        text-align: center;
+        margin: 10px;
+    }
+    button {
+        margin: 3px;
+        padding: 5px 10px;
+        background: lightgray;
+        border: 1px solid black;
+        cursor: pointer;
+    }
+    table {
+        border: 1px solid black;
+        border-collapse: collapse;
+        width: 80%;
+        margin: 0 auto;
+        background: white;
+    }
+    th, td {
+        border: 1px solid black;
+        padding: 5px;
+        text-align: center;
+    }
+    thead {
+        background-color: lightgray;
+    }
+  </style>
+</head>
+<body>
+  <h1>Manajemen Produk Toko Online</h1>
+  <div class="buttons">
+    <button id="btn-tampil">Tampilkan Produk</button>
+    <button id="btn-tambah">Tambah Produk</button>
+    <button id="btn-hapus">Hapus Produk</button>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nama Produk</th>
+        <th>Harga</th>
+      </tr>
+    </thead>
+    <tbody id="daftar-produk">
+    </tbody>
+  </table>
+
+  <script>
+    let produkList = [
+      { id: 1, nama: "Laptop", harga: 12000000 },
+      { id: 2, nama: "Smartphone", harga: 5000000 },
+      { id: 3, nama: "Mouse", harga: 150000 },
+      { id: 4, nama: "Keyboard", harga: 300000 },
+      { id: 5, nama: "Headphone", harga: 400000 },
+      { id: 6, nama: "Monitor", harga: 2500000 },
+      { id: 7, nama: "Printer", harga: 1800000 },
+      { id: 8, nama: "VR Headset", harga: 12000000 },
+      { id: 9, nama: "External Hard Drive", harga: 1200000 },
+      { id: 10, nama: "Webcam", harga: 600000 },
+    ];
+    // fungsi buat menampilkan produk menggunakan destructuring
+    function tampilkanProduk() {
+      let tbody = document.getElementById("daftar-produk");
+      tbody.innerHTML = ""; // kosongin dulu biar nggak dobel
+
+    for (let { id, nama, harga } of produkList) {
+      let row = "<tr>";
+      row += "<td>" + id + "</td>";
+      row += "<td>" + nama + "</td>";
+      row += "<td>Rp " + harga.toLocaleString() + "</td>";
+      row += "</tr>";
+    tbody.innerHTML += row;
+        }
+    }
+
+    let produkVisible = false; 
+    function toggleProduk() {
+       let tbody = document.getElementById("daftar-produk");
+    if (!produkVisible) {
+        // tampilkan produk
+        tbody.innerHTML = "";
+        for (let { id, nama, harga } of produkList) {
+        let row = "<tr>";
+        row += "<td>" + id + "</td>";
+        row += "<td>" + nama + "</td>";
+        row += "<td>Rp " + harga.toLocaleString() + "</td>";
+        row += "</tr>";
+        tbody.innerHTML += row;
+        }
+        produkVisible = true;
+    } else {
+        tbody.innerHTML = "";
+        produkVisible = false;
+    }
+ }
+    document.getElementById("btn-tampil").addEventListener("click", toggleProduk);
+
+    // fungsi tambah produk menggunakan spread operator
+    function tambahProduk(id, nama, harga) {
+       produkList = [...produkList, { id, nama, harga }];
+       tampilkanProduk(); // refresh tabel setelah nambah
+    }
+    // tombol tambah dengan event listener
+    document.getElementById("btn-tambah").addEventListener("click", () => {
+       let newId = produkList.length + 1;
+       let newNama = "ProdukBaru" + newId;
+       let newHarga = 100000 * newId;
+    produkList = [...produkList, { id: newId, nama: newNama, harga: newHarga }];
+       if (produkVisible) {
+       toggleProduk();
+       toggleProduk();
+    }
+    });
+
+    function hapusProdukTerbaru() {
+       if (produkList.length > 0) {
+    produkList.pop(); // hapus elemen terakhir
+       if (produkVisible) {
+       toggleProduk(); // refresh tampilan
+       toggleProduk(); 
+    }}}
+    document.getElementById("btn-hapus").addEventListener("click", hapusProdukTerbaru);
+  </script>
+</body>
+</html>
